@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-v4-rtl/dist/css/bootstrap-rtl.css";
 @import "~font-awesome/css/font-awesome.min.css";  
+/* Fonts */
+
+/* @import url(http://fonts.googlepis.com/earlyaccess/droidarabickufi.css); */
+@font-face { font-family: "Droid-Arabic-Kufi"; src: url("./assets/fonts/DroidKufi-Regular.ttf"); }
+@font-face { font-family: "ToyorAljanah"; src: url("./assets/fonts/ToyorAljanah.otf"); }
+@font-face { font-family: "Droid-Arabic-Kufi"; src: url("./assets/fonts/Droid.Arabic.Kufi_DownloadSoftware.iR_.ttf"); }
+@font-face { font-family: "Droid-Sans-Arabic"; src: url("./assets/fonts/Droid-Sans-Arabic.ttf"); }
+@font-face { font-family: "JF-Flat-Regular"; src: url("./assets/fonts/JF-Flat-Regular.ttf"); }
