@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ZwajApp.API.Data;
 using ZwajApp.API.Helpers;
+using AutoMapper;
 
 namespace ZwajApp.API
 {
@@ -35,9 +36,16 @@ namespace ZwajApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(option =>{
+               option.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                 
+            });
             services.AddCors();
+            services.AddAutoMapper();
+            services.AddTransient<TrailData>();
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IZwajRepository,ZwajRepository>();
             //Authentication Middleware 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(Options=>{
@@ -52,7 +60,7 @@ namespace ZwajApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TrailData trailData)
         {
             if (env.IsDevelopment())
             {
@@ -78,6 +86,7 @@ namespace ZwajApp.API
             }
 
             // app.UseHttpsRedirection();
+            // trailData.TrailUsers();
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();

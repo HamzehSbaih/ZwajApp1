@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ using ZwajApp.API.Models;
 
 namespace ZwajApp.API.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -30,14 +32,13 @@ namespace ZwajApp.API.Controllers
 
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-
             //validation 
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("هذا المستخدم مسجل من قبل");
             var userToCreate = new User
             {
-                UserName = userForRegisterDto.UserName
+                Username = userForRegisterDto.UserName
             };
 
             var CreatedUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
@@ -54,7 +55,7 @@ namespace ZwajApp.API.Controllers
             if (userFromRepo == null) return Unauthorized();
             var claims = new[]{
                 new Claim(ClaimTypes.NameIdentifier,userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name,userFromRepo.UserName)
+                new Claim(ClaimTypes.Name,userFromRepo.Username)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
