@@ -5,8 +5,9 @@
 @import "~alertifyjs/build/css/alertify.min.css";
 @import "~alertifyjs/build/css/themes/bootstrap.min.css";
 @import url("assets/myStyles.css");
-/* Fonts */
 
+
+/* Fonts */
 /* @import url(http://fonts.googlepis.com/earlyaccess/droidarabickufi.css); */
 @font-face { font-family: "Droid-Arabic-Kufi"; src: url("./assets/fonts/DroidKufi-Regular.ttf"); }
 @font-face { font-family: "ToyorAljanah"; src: url("./assets/fonts/ToyorAljanah.otf"); }
