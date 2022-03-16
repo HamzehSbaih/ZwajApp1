@@ -26,13 +26,14 @@ font-family:ToyorAljanah;font-size:2.25rem;font-weight:bolder" class="navbar-bra
     </a>
 
   <div *dropdownMenu class="dropdown-menu mt-3" >
-     <a class="dropdown-item" ><i class="fa fa-user-o" aria-hidden="true"></i>
+     <a class="dropdown-item mnav-link" [routerLink]="['/member/edit']" ><i class="fa fa-user"></i>
        ملفي الشخصي</a>
       <div class="dropdown-divider"></div>
-     <a (click)="loggedOut()" class="dropdown-item"><i class="fa fa-sign-out"></i>
+     <a (click)="loggedOut();" class="dropdown-item mnav-link"><i class="fa fa-sign-out"></i>
        تسجيل الخروج</a>
    </div>
   </div>
+
   <form *ngIf="!loggedIn()" (ngSubmit)="login()" #loginForm ="ngForm" class="ml-5 form-inline my-2 my-lg-0">
     <input name="username" required class="form-control mr-sm-2" type="text" [(ngModel)]="model.username" placeholder="إسم المشترك">
     <input name="password" required class="form-control mr-sm-2" type="password" [(ngModel)]="model.password" placeholder="كلمة السر">
